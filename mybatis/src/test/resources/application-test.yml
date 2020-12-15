@@ -1,0 +1,12 @@
+spring:
+  main:
+    allow-bean-definition-overriding: true
+  datasource:
+    url: jdbc:h2:mem:test;DATABASE_TO_UPPER=false;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
+    username: test
+    password:
+    initialization-mode: always
+    schema: db/schema-h2.sql
+    data: db/data-h2.sql
+mybatis:
+  config-location: 'classpath:db/mybatis-config.xml'
