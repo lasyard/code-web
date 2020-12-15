@@ -59,6 +59,7 @@
     <modules>
         <module>jmx</module>
         <module>mybatis</module>
+        <module>spring_data_jdbc</module>
     </modules>
 
     <properties>
@@ -95,6 +96,7 @@
         <junit.version>4.12</junit.version>
 
         <!-- plugins -->
+        <maven-failsafe.version>3.0.0-M5</maven-failsafe.version>
         <maven-jar.version>3.2.0</maven-jar.version>
         <maven-checkstyle.version>3.1.1</maven-checkstyle.version>
         <exec-maven.version>3.0.0</exec-maven.version>
@@ -103,6 +105,11 @@
     <dependencyManagement>
         <dependencies>
             <!-- spring boot -->
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-data-jdbc</artifactId>
+                <version>${spring-boot.version}</version>
+            </dependency>
             <dependency>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-starter-test</artifactId>
@@ -220,6 +227,11 @@
             <plugins>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-failsafe-plugin</artifactId>
+                    <version>${maven-failsafe.version}</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-jar-plugin</artifactId>
                     <version>${maven-jar.version}</version>
                 </plugin>
@@ -265,6 +277,21 @@
                         </goals>
                     </execution>
                 </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-failsafe-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>integration-test</goal>
+                            <goal>verify</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <parallel>none</parallel>
+                </configuration>
             </plugin>
         </plugins>
     </build>
