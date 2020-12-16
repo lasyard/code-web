@@ -9,6 +9,7 @@
         <outputRelativeToContentRoot value="true" />
         <module name="file_server" />
         <module name="spring_jdbc" />
+        <module name="spring_web" />
         <module name="jmx" />
         <module name="servlet" />
         <module name="mybatis" />
@@ -26,6 +27,7 @@
       <module name="simple" target="1.8" />
       <module name="spring_data_jdbc" target="1.8" />
       <module name="spring_jdbc" target="1.8" />
+      <module name="spring_web" target="1.8" />
     </bytecodeTargetLevel>
   </component>
 </project>
