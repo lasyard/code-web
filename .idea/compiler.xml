@@ -16,9 +16,11 @@
         <module name="spring_boot" />
         <module name="simple" />
         <module name="spring_data_jdbc" />
+        <module name="citrus" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
+      <module name="citrus" target="1.8" />
       <module name="code-web" target="1.8" />
       <module name="file_server" target="1.8" />
       <module name="jetty" target="1.8" />

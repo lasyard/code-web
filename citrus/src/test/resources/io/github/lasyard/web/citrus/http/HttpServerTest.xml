@@ -1,0 +1,48 @@
+<!--
+  ~ Copyright 2020 lasyard@github.com
+  ~
+  ~ Licensed under the Apache License, Version 2.0 (the "License");
+  ~ you may not use this file except in compliance with the License.
+  ~ You may obtain a copy of the License at
+  ~
+  ~     http://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~ Unless required by applicable law or agreed to in writing, software
+  ~ distributed under the License is distributed on an "AS IS" BASIS,
+  ~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~ See the License for the specific language governing permissions and
+  ~ limitations under the License.
+  -->
+
+<spring:beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xmlns:spring="http://www.springframework.org/schema/beans"
+              xmlns:http="http://www.citrusframework.org/schema/http/testcase"
+              xmlns="http://www.citrusframework.org/schema/testcase"
+              xsi:schemaLocation="
+              http://www.springframework.org/schema/beans
+              http://www.springframework.org/schema/beans/spring-beans.xsd
+              http://www.citrusframework.org/schema/testcase
+              http://www.citrusframework.org/schema/testcase/citrus-testcase.xsd
+              http://www.citrusframework.org/schema/http/testcase
+              http://www.citrusframework.org/schema/http/testcase/citrus-http-testcase.xsd">
+
+    <testcase name="HttpServerTest">
+        <description>
+            Http server test sample.
+        </description>
+        <actions>
+            <http:send-request client="httpClient">
+                <http:GET path="/"/>
+            </http:send-request>
+            <http:receive-response client="httpClient">
+                <http:headers status="200" reason-phrase="OK" version="HTTP/1.1">
+                </http:headers>
+                <http:body type="plaintext">
+                    <http:payload>
+                    </http:payload>
+                </http:body>
+            </http:receive-response>
+        </actions>
+    </testcase>
+
+</spring:beans>
