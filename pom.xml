@@ -61,6 +61,7 @@
         <module>mybatis</module>
         <module>spring_data_jdbc</module>
         <module>spring_jdbc</module>
+        <module>jetty</module>
     </modules>
 
     <properties>
@@ -74,6 +75,9 @@
 
         <!-- spring boot -->
         <spring-boot.version>2.4.1</spring-boot.version>
+
+        <!-- jetty -->
+        <jetty.version>9.4.35.v20201120</jetty.version>
 
         <!-- mybatis -->
         <mybatis.version>3.5.6</mybatis.version>
@@ -133,6 +137,18 @@
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-starter-test</artifactId>
                 <version>${spring-boot.version}</version>
+            </dependency>
+
+            <!-- jetty -->
+            <dependency>
+                <groupId>org.eclipse.jetty</groupId>
+                <artifactId>jetty-server</artifactId>
+                <version>${jetty.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.eclipse.jetty</groupId>
+                <artifactId>jetty-servlet</artifactId>
+                <version>${jetty.version}</version>
             </dependency>
 
             <!-- mybatis -->

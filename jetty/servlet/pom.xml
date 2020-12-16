@@ -24,38 +24,43 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <artifactId>code-web</artifactId>
+        <artifactId>jetty</artifactId>
         <groupId>io.github.lasyard.web</groupId>
         <version>1.0.0-SNAPSHOT</version>
     </parent>
 
-    <artifactId>spring-jdbc</artifactId>
+    <artifactId>servlet</artifactId>
     <packaging>jar</packaging>
 
+    <properties>
+        <main.class>io.github.lasyard.web.jetty.servlet.ServletExample</main.class>
+    </properties>
+
     <dependencies>
-        <!-- spring -->
+        <!-- jetty -->
         <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-context</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-jdbc</artifactId>
-        </dependency>
-
-        <!-- db -->
-        <dependency>
-            <groupId>com.h2database</groupId>
-            <artifactId>h2</artifactId>
-            <scope>test</scope>
-        </dependency>
-
-        <!-- apache commons -->
-        <dependency>
-            <groupId>org.apache.commons</groupId>
-            <artifactId>commons-dbcp2</artifactId>
-            <scope>runtime</scope>
+            <groupId>org.eclipse.jetty</groupId>
+            <artifactId>jetty-servlet</artifactId>
         </dependency>
     </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>exec-maven-plugin</artifactId>
+                <configuration>
+                    <mainClass>${main.class}</mainClass>
+                </configuration>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>java</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
 
 </project>
