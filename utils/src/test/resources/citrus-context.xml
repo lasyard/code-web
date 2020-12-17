@@ -36,14 +36,6 @@
         <spring:bean class="com.consol.citrus.http.interceptor.LoggingClientInterceptor"/>
     </util:list>
 
-    <citrus-http:client id="httpClient"
-                        request-url="http://localhost:8080/"
-                        request-method="GET"
-                        content-type="text/html"
-                        charset="UTF-8"
-                        timeout="3000"
-                        interceptors="clientInterceptors"/>
-
     <citrus-http:server id="httpServer"
                         port="8080"
                         auto-start="true"

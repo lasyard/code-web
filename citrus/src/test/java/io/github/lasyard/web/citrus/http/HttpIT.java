@@ -24,25 +24,45 @@ import org.springframework.http.HttpStatus;
 public class HttpIT extends JUnit4CitrusTestDesigner {
     @Test
     @CitrusTest
-    public void testHttpServerRaw() {
+    public void testHttpServerClientRaw() {
         description("Using raw send/receive.");
+        async().actions(
+            receive("httpServer")
+                .header("Accept", "text/html")
+                .payload(""),
+            send("httpServer")
+                .header("ContentType", "text/html")
+                .payload("<html></html>")
+        );
         send("httpClient")
-            .payload("")
-            .header("");
+            .header("Accept", "text/html")
+            .payload("");
         receive("httpClient")
-            .messageType("plaintext");
+            .header("ContentType", "text/html")
+            .payload("<html></html>");
     }
 
     @Test
     @CitrusTest
-    public void testHttpServer() {
+    public void testHttpServerClient() {
         description("Using http send/receive.");
+        async().actions(
+            http().server("httpServer").receive()
+                .get()
+                .accept("text/html"),
+            http().server("httpServer").send()
+                .response(HttpStatus.OK)
+                .version("HTTP/1.1")
+                .contentType("text/html")
+                .payload("<html></html>")
+        );
         http().client("httpClient").send()
             .get()
             .accept("text/html");
         http().client(("httpClient")).receive()
             .response(HttpStatus.OK)
-            .messageType("plaintext")
-            .version("HTTP/1.1");
+            .version("HTTP/1.1")
+            .contentType("text/html")
+            .payload("<html></html>");
     }
 }

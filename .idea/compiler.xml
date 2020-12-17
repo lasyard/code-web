@@ -12,6 +12,7 @@
         <module name="spring_web" />
         <module name="jmx" />
         <module name="servlet" />
+        <module name="utils" />
         <module name="mybatis" />
         <module name="spring_boot" />
         <module name="simple" />
@@ -32,6 +33,7 @@
       <module name="spring_data_jdbc" target="1.8" />
       <module name="spring_jdbc" target="1.8" />
       <module name="spring_web" target="1.8" />
+      <module name="utils" target="1.8" />
     </bytecodeTargetLevel>
   </component>
 </project>

@@ -26,11 +26,27 @@
               http://www.citrusframework.org/schema/http/testcase
               http://www.citrusframework.org/schema/http/testcase/citrus-http-testcase.xsd">
 
-    <testcase name="HttpServerTest">
+    <testcase name="HttpServerClientTest">
         <description>
             Http server test sample.
         </description>
         <actions>
+            <async>
+                <actions>
+                    <http:receive-request server="httpServer">
+                        <http:GET path="/"/>
+                    </http:receive-request>
+                    <http:send-response server="httpServer">
+                        <http:headers status="200" reason-phrase="OK" version="HTTP/1.1">
+                        </http:headers>
+                        <http:body type="plaintext">
+                            <http:payload>
+                                <html/>
+                            </http:payload>
+                        </http:body>
+                    </http:send-response>
+                </actions>
+            </async>
             <http:send-request client="httpClient">
                 <http:GET path="/"/>
             </http:send-request>
@@ -39,6 +55,7 @@
                 </http:headers>
                 <http:body type="plaintext">
                     <http:payload>
+                        <html/>
                     </http:payload>
                 </http:body>
             </http:receive-response>

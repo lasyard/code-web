@@ -14,15 +14,25 @@
  * limitations under the License.
  */
 
-package io.github.lasyard.web.citrus.http;
+package io.github.lasyard.web.utils;
 
-import com.consol.citrus.annotations.CitrusXmlTest;
-import com.consol.citrus.junit.AbstractJUnit4CitrusTest;
-import org.junit.Test;
+import org.apache.commons.io.IOUtils;
 
-public class HttpXmlIT extends AbstractJUnit4CitrusTest {
-    @Test
-    @CitrusXmlTest(name = "HttpServerClientTest")
-    public void httpTest() {
+import java.io.BufferedInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.net.URL;
+import javax.annotation.Nonnull;
+
+public final class WebUtils {
+    private WebUtils() {
+    }
+
+    @Nonnull
+    public static byte[] downloadFromUrl(@Nonnull URL url) throws IOException {
+        ByteArrayOutputStream out = new ByteArrayOutputStream();
+        BufferedInputStream in = new BufferedInputStream(url.openStream());
+        IOUtils.copy(in, out);
+        return out.toByteArray();
     }
 }
