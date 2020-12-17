@@ -37,6 +37,9 @@ public class TransactionIT {
     private static ModelDao dao;
     private static PlatformTransactionManager txManager;
 
+    private boolean updatedInTx2;
+    private boolean readInTx1;
+
     @BeforeClass
     public static void setupClass() {
         dao = DaoFactory.getModelDao();
@@ -45,6 +48,8 @@ public class TransactionIT {
 
     @Before
     public void setup() {
+        updatedInTx2 = false;
+        readInTx1 = false;
     }
 
     @Nonnull
@@ -66,24 +71,21 @@ public class TransactionIT {
         results.add(model.getName());
         log.info("First read result: " + model);
 
-        Object lock = new Object();
         Thread th = new Thread(() -> {
             TransactionStatus tx2 = txManager.getTransaction(def);
             log.info("Transaction 2 started.");
             try {
-                synchronized (lock) {
+                synchronized (this) {
                     Model model1 = dao.get(id);
                     assert model1 != null;
                     model1.setName("Two");
                     dao.update(model1);
                     log.info("Records updated in transaction 2.");
-                    /*
-                     * If `lock == this` and `isolationLevel == TransactionDefinition.ISOLATION_REPEATABLE_READ`,
-                     * then `notifyAll()` must be used here to avoid blocking for H2 database.
-                     * Maybe some other threads are waiting on this. It is interesting.
-                     */
-                    lock.notify();
-                    lock.wait();
+                    updatedInTx2 = true;
+                    notify();
+                    while (!readInTx1) {
+                        wait();
+                    }
                     txManager.commit(tx2);
                     log.info("Transaction 2 committed.");
                 }
@@ -94,13 +96,16 @@ public class TransactionIT {
         th.start();
 
         try {
-            synchronized (lock) {
-                lock.wait();
+            synchronized (this) {
+                while (!updatedInTx2) {
+                    wait();
+                }
                 model = dao.get(id);
                 assert model != null;
                 results.add(model.getName());
                 log.info("Read uncommitted result: " + model);
-                lock.notify();
+                readInTx1 = true;
+                notify();
             }
             th.join();
             model = dao.get(id);
