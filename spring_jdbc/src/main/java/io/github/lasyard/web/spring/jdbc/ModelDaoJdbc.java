@@ -60,7 +60,7 @@ class ModelDaoJdbc extends JdbcDaoSupport implements ModelDao {
     @Nullable
     public Model get(int id) {
         String sql = "select id, name from " + TABLE_NAME + " where id = ?";
-        List<Model> models = Objects.requireNonNull(getJdbcTemplate()).query(sql, new Object[]{id}, rowMapper);
+        List<Model> models = Objects.requireNonNull(getJdbcTemplate()).query(sql, rowMapper, id);
         if (models.size() == 0) {
             return null;
         }

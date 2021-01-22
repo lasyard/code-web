@@ -16,11 +16,13 @@
         <module name="mybatis" />
         <module name="spring_boot" />
         <module name="simple" />
+        <module name="calcite" />
         <module name="spring_data_jdbc" />
         <module name="citrus" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
+      <module name="calcite" target="1.8" />
       <module name="citrus" target="1.8" />
       <module name="code-web" target="1.8" />
       <module name="file_server" target="1.8" />
